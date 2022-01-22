@@ -1,0 +1,13 @@
+{
+	"action_manifest_version" : 0,
+	"alias_info" : {},
+	"bindings" : {},
+	"category" : "steamvr_input",
+	"controller_type" : "gamepad",
+	"description" : "Bindings for the Godot OpenVR plugin for a generic controller",
+	"name" : "Godot bindings for Gamepad",
+	"options" : {
+		"returnBindingsWithRightHand" : true
+	},
+	"simulated_actions" : []
+}

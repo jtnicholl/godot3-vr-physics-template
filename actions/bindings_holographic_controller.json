@@ -1,0 +1,11 @@
+{
+	"action_manifest_version" : 0,
+	"alias_info" : {},
+	"bindings" : {},
+	"category" : "steamvr_input",
+	"controller_type" : "holographic_controller",
+	"description" : "Bindings for the Godot OpenVR plugin for Windows Mixed Reality Controller",
+	"name" : "Godot bindings for Windows Mixed Reality Controller",
+	"options" : {},
+	"simulated_actions" : []
+}

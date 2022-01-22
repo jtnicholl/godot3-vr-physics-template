@@ -1,0 +1,11 @@
+{
+	"action_manifest_version" : 0,
+	"alias_info" : {},
+	"bindings" : {},
+	"category" : "steamvr_input",
+	"controller_type" : "knuckles",
+	"description" : "Bindings for the Godot OpenVR plugin for an index controller",
+	"name" : "Godot bindings for an index controller",
+	"options" : {},
+	"simulated_actions" : []
+}

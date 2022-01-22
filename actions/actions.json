@@ -1,0 +1,64 @@
+{
+	"action_set" : [
+		{
+			"name" : "/actions/godot",
+			"usage" : "leftright"
+		}
+	],
+	"actions" : [
+		{
+			"name" : "/actions/godot/in/teleport",
+			"requirement" : "mandatory",
+			"type" : "boolean"
+		},
+		{
+			"name" : "/actions/godot/in/turn_left",
+			"requirement" : "mandatory",
+			"type" : "boolean"
+		},
+		{
+			"name" : "/actions/godot/in/turn_right",
+			"requirement" : "mandatory",
+			"type" : "boolean"
+		},
+		{
+			"name" : "/actions/godot/in/grip",
+			"requirement" : "suggested",
+			"type" : "vector1"
+		},
+		{
+			"name" : "/actions/godot/in/grab",
+			"requirement" : "mandatory",
+			"type" : "boolean"
+		}
+    ],
+	"default_bindings" : [
+		{
+			"binding_url" : "bindings_index_controller.json",
+			"controller_type" : "knuckles"
+		},
+		{
+			"binding_url" : "bindings_oculus_touch.json",
+			"controller_type" : "oculus_touch"
+		},
+		{
+			"binding_url" : "bindings_vive_controller.json",
+			"controller_type" : "vive_controller"
+		},
+		{
+			"binding_url" : "bindings_holographic_controller.json",
+			"controller_type" : "holographic_controller"
+		},
+		{
+			"binding_url" : "bindings_generic.json",
+			"controller_type" : "generic"
+		},
+		{
+			"binding_url" : "bindings_gamepad.json",
+			"controller_type" : "gamepad"
+		}
+	],
+	"localization_files" : {
+	"en_US" : "actions_en_US.json"
+	}
+}

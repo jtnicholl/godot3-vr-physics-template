@@ -1,0 +1,110 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Object",
+"class": "GrabResult",
+"language": "GDScript",
+"path": "res://player/GrabResult.gd"
+}, {
+"base": "KinematicBody",
+"class": "HandAnchor",
+"language": "GDScript",
+"path": "res://player/HandAnchor.gd"
+}, {
+"base": "RigidBody",
+"class": "Pickup",
+"language": "GDScript",
+"path": "res://props/Pickup.gd"
+}, {
+"base": "RayCast",
+"class": "Teleporter",
+"language": "GDScript",
+"path": "res://player/Teleporter.gd"
+}, {
+"base": "Reference",
+"class": "Utility",
+"language": "GDScript",
+"path": "res://Utility.gd"
+}, {
+"base": "ARVRController",
+"class": "VRController",
+"language": "GDScript",
+"path": "res://player/VRController.gd"
+}, {
+"base": "Spatial",
+"class": "VRGlove",
+"language": "GDScript",
+"path": "res://player/VRGlove.gd"
+}, {
+"base": "RigidBody",
+"class": "VRHand",
+"language": "GDScript",
+"path": "res://player/VRHand.gd"
+}, {
+"base": "ARVROrigin",
+"class": "VRPlayer",
+"language": "GDScript",
+"path": "res://player/VRPlayer.gd"
+} ]
+_global_script_class_icons={
+"GrabResult": "",
+"HandAnchor": "",
+"Pickup": "",
+"Teleporter": "",
+"Utility": "",
+"VRController": "",
+"VRGlove": "",
+"VRHand": "",
+"VRPlayer": ""
+}
+
+[application]
+
+config/name="VR Template"
+run/main_scene="res://DemoRoom.tscn"
+config/icon="res://assets/icon.png"
+
+[autoload]
+
+Settings="*res://Settings.gd"
+
+[debug]
+
+gdscript/warnings/shadowed_variable=false
+gdscript/warnings/return_value_discarded=false
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/godot-openvr/plugin.cfg" )
+
+[gdnative]
+
+singletons=[ "res://addons/godot-openvr/godot_openvr.gdnlib" ]
+
+[layer_names]
+
+3d_render/layer_1="Environment"
+3d_render/layer_2="Props"
+3d_render/layer_3="Player"
+3d_render/layer_9="First Person Only"
+3d_render/layer_10="Third Person Only"
+3d_physics/layer_1="Environment"
+3d_physics/layer_2="Props"
+3d_physics/layer_3="Player"
+
+[rendering]
+
+threads/thread_model=2
+gles3/shaders/shader_compilation_mode=2
+gles3/shaders/max_simultaneous_compiles.mobile=2
+gles3/shaders/shader_cache_size_mb.mobile=256
+quality/filters/use_debanding=true
+environment/default_environment="res://assets/default_env.tres"

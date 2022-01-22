@@ -1,0 +1,4 @@
+[gd_scene format=2]
+
+[node name="VRHandJoint" type="PinJoint"]
+params/impulse_clamp = 1.0

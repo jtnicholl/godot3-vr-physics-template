@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.1, 0.05, 0.25 )
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.2, 0.1, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0, 1, 0.516667, 1 )
+roughness = 0.3
+
+[node name="Pinwheel" type="RigidBody"]
+gravity_scale = 0.0
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+angular_damp = 2.0
+
+[node name="CollisionShape1" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance1" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )

@@ -1,0 +1,67 @@
+{
+	"action_manifest_version" : 0,
+	"alias_info" : {},
+	"bindings" : {
+		"/actions/godot" : {
+			"sources" : [
+				{
+					"inputs" : {
+						"north" : {
+							"output" : "/actions/godot/in/teleport"
+						}
+					},
+					"mode" : "dpad",
+					"parameters" : {
+						"sub_mode" : "click"
+					},
+					"path" : "/user/hand/left/input/trackpad"
+				},
+				{
+					"inputs" : {
+						"west" : {
+							"output" : "/actions/godot/in/turn_left"
+						},
+						"east" : {
+							"output" : "/actions/godot/in/turn_right"
+						}
+					},
+					"mode" : "dpad",
+					"parameters" : {
+						"sub_mode" : "click"
+					},
+					"path" : "/user/hand/right/input/trackpad"
+				},
+				{
+					"inputs" : {
+						"pull" : {
+							"output" : "/actions/godot/in/grip"
+						},
+						"click" : {
+							"output" : "/actions/godot/in/grab"
+						}
+					},
+					"mode" : "trigger",
+					"path" : "/user/hand/left/input/trigger"
+				},
+				{
+					"inputs" : {
+						"pull" : {
+							"output" : "/actions/godot/in/grip"
+						},
+						"click" : {
+							"output" : "/actions/godot/in/grab"
+						}
+					},
+					"mode" : "trigger",
+					"path" : "/user/hand/right/input/trigger"
+				}
+			]
+		}
+	},
+	"category" : "steamvr_input",
+	"controller_type" : "vive_controller",
+	"description" : "Bindings for the Godot OpenVR SDK plugin for the Vive controller",
+	"name" : "Godot bindings for Vive Controller",
+	"options" : {},
+	"simulated_actions" : []
+}

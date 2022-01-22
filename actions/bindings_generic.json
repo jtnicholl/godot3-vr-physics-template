@@ -1,0 +1,6 @@
+{
+	"bindings" : {},
+	"controller_type" : "generic",
+	"description" : "Bindings for the Godot OpenVR plugin for a generic controller",
+	"name" : "Godot bindings for a generic controller"
+}

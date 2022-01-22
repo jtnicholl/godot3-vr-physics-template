@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://player/VRController.tscn" type="PackedScene" id=1]
+[ext_resource path="res://player/VRPlayer.gd" type="Script" id=2]
+[ext_resource path="res://player/VRHand.tscn" type="PackedScene" id=3]
+[ext_resource path="res://player/HandAnchor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://player/VRHandJoint.tscn" type="PackedScene" id=5]
+[ext_resource path="res://player/VRGlove.tscn" type="PackedScene" id=6]
+[ext_resource path="res://player/Teleporter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://addons/godot-openvr/OpenVRAction.gdns" type="Script" id=8]
+
+[node name="VRPlayer" type="ARVROrigin"]
+script = ExtResource( 2 )
+
+[node name="Camera" type="ARVRCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
+
+[node name="LeftController" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1, 0 )
+
+[node name="Teleporter" parent="LeftController" instance=ExtResource( 7 )]
+
+[node name="LeftHandAnchor" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1, 0 )
+controller = NodePath("../LeftController")
+
+[node name="LeftHandJoint" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1, 0 )
+nodes/node_a = NodePath("../LeftHandAnchor")
+nodes/node_b = NodePath("../LeftHand")
+
+[node name="LeftHand" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1, 0 )
+controller = NodePath("../LeftController")
+
+[node name="VRGlove" parent="LeftHand" instance=ExtResource( 6 )]
+
+[node name="RightController" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, 0 )
+controller_id = 2
+
+[node name="RightHandAnchor" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, 0 )
+controller = NodePath("../RightController")
+
+[node name="RightHandJoint" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, 0 )
+nodes/node_a = NodePath("../RightHandAnchor")
+nodes/node_b = NodePath("../RightHand")
+
+[node name="RightHand" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, 0 )
+controller = NodePath("../RightController")
+
+[node name="VRGlove" parent="RightHand" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Actions" type="Spatial" parent="."]
+
+[node name="TeleportAction" type="Spatial" parent="Actions"]
+script = ExtResource( 8 )
+pressed_action = "/actions/godot/in/teleport"
+
+[node name="TurnLeftAction" type="Spatial" parent="Actions"]
+script = ExtResource( 8 )
+pressed_action = "/actions/godot/in/turn_left"
+
+[node name="TurnRightAction" type="Spatial" parent="Actions"]
+script = ExtResource( 8 )
+pressed_action = "/actions/godot/in/turn_right"
+
+[node name="GrabLeftAction" type="Spatial" parent="Actions"]
+script = ExtResource( 8 )
+pressed_action = "/actions/godot/in/grab"
+on_hand = 1
+
+[node name="GrabRightAction" type="Spatial" parent="Actions"]
+script = ExtResource( 8 )
+pressed_action = "/actions/godot/in/grab"
+on_hand = 2
+
+[connection signal="teleported" from="LeftController/Teleporter" to="." method="_on_teleporter_teleported"]
+[connection signal="pressed" from="Actions/TeleportAction" to="." method="_on_teleport_action_pressed"]
+[connection signal="released" from="Actions/TeleportAction" to="." method="_on_teleport_action_released"]
+[connection signal="pressed" from="Actions/TurnLeftAction" to="." method="_on_turn_left_action_pressed"]
+[connection signal="pressed" from="Actions/TurnRightAction" to="." method="_on_turn_right_action_pressed"]
+[connection signal="pressed" from="Actions/GrabLeftAction" to="." method="_on_grab_left_action_pressed"]
+[connection signal="released" from="Actions/GrabLeftAction" to="." method="_on_grab_left_action_released"]
+[connection signal="pressed" from="Actions/GrabRightAction" to="." method="_on_grab_right_action_pressed"]
+[connection signal="released" from="Actions/GrabRightAction" to="." method="_on_grab_right_action_released"]

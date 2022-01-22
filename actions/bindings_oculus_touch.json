@@ -1,0 +1,11 @@
+{
+	"action_manifest_version" : 0,
+	"alias_info" : {},
+	"bindings" : {},
+	"category" : "steamvr_input",
+	"controller_type" : "oculus_touch",
+	"description" : "Bindings for the Godot OpenVR SDK plugin for the Oculus Touch",
+	"name" : "Godot bindings for Oculus Touch",
+	"options" : {},
+	"simulated_actions" : []
+}
