@@ -39,6 +39,8 @@ controller = NodePath("../LeftController")
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, 0 )
 controller_id = 2
 
+[node name="Teleporter" parent="RightController" instance=ExtResource( 7 )]
+
 [node name="RightHandAnchor" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1, 0 )
 controller = NodePath("../RightController")
@@ -57,9 +59,15 @@ transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Actions" type="Spatial" parent="."]
 
-[node name="TeleportAction" type="Spatial" parent="Actions"]
+[node name="TeleportLeftAction" type="Spatial" parent="Actions"]
 script = ExtResource( 8 )
 pressed_action = "/actions/godot/in/teleport"
+on_hand = 1
+
+[node name="TeleportRightAction" type="Spatial" parent="Actions"]
+script = ExtResource( 8 )
+pressed_action = "/actions/godot/in/teleport"
+on_hand = 2
 
 [node name="TurnLeftAction" type="Spatial" parent="Actions"]
 script = ExtResource( 8 )
@@ -80,8 +88,11 @@ pressed_action = "/actions/godot/in/grab"
 on_hand = 2
 
 [connection signal="teleported" from="LeftController/Teleporter" to="." method="_on_teleporter_teleported"]
-[connection signal="pressed" from="Actions/TeleportAction" to="." method="_on_teleport_action_pressed"]
-[connection signal="released" from="Actions/TeleportAction" to="." method="_on_teleport_action_released"]
+[connection signal="teleported" from="RightController/Teleporter" to="." method="_on_teleporter_teleported"]
+[connection signal="pressed" from="Actions/TeleportLeftAction" to="." method="_on_teleport_left_action_pressed"]
+[connection signal="released" from="Actions/TeleportLeftAction" to="." method="_on_teleport_left_action_released"]
+[connection signal="pressed" from="Actions/TeleportRightAction" to="." method="_on_teleport_right_action_pressed"]
+[connection signal="released" from="Actions/TeleportRightAction" to="." method="_on_teleport_right_action_released"]
 [connection signal="pressed" from="Actions/TurnLeftAction" to="." method="_on_turn_left_action_pressed"]
 [connection signal="pressed" from="Actions/TurnRightAction" to="." method="_on_turn_right_action_pressed"]
 [connection signal="pressed" from="Actions/GrabLeftAction" to="." method="_on_grab_left_action_pressed"]

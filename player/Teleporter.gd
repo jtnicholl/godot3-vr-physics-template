@@ -5,7 +5,7 @@ signal teleported(global_position)
 const _OK_TELEPORT_COLOR = Color(0xADFFC8FF)
 const _NO_TELEPORT_COLOR = Color(0xFF4000FF)
 
-export (float, 1, 10, 1) var max_distance = 5
+export (float, 1.0, 10.0, 1.0) var max_distance = 5.0
 
 onready var _collision_check: Area = $CollisionCheck
 onready var _target_material: SpatialMaterial = $CollisionCheck/Target["material/0"]
@@ -33,6 +33,14 @@ func press() -> void:
 func release() -> void:
 	if enabled && _can_teleport():
 		emit_signal("teleported", get_collision_point())
+	_stop()
+
+
+func cancel() -> void:
+	_stop()
+
+
+func _stop() -> void:
 	set_physics_process(false)
 	enabled = false
 	_collision_check.hide()

@@ -7,7 +7,8 @@ onready var _left_controller: VRController = $LeftController
 onready var _right_controller: VRController = $RightController
 onready var _left_hand: VRHand = $LeftHand
 onready var _right_hand: VRHand = $RightHand
-onready var _teleporter: Teleporter = $LeftController/Teleporter
+onready var _left_teleporter: Teleporter = $LeftController/Teleporter
+onready var _right_teleporter: Teleporter = $RightController/Teleporter
 onready var _camera: ARVRCamera = $Camera
 
 var _left_pickup: Pickup = null
@@ -49,13 +50,24 @@ func _try_grab(tracker_hand: int) -> void:
 	result.free()
 
 
-func _on_teleport_action_pressed():
+func _on_teleport_left_action_pressed():
 	if can_move:
-		_teleporter.press()
+		_right_teleporter.cancel()
+		_left_teleporter.press()
 
 
-func _on_teleport_action_released():
-	_teleporter.release()
+func _on_teleport_left_action_released():
+	_left_teleporter.release()
+
+
+func _on_teleport_right_action_pressed():
+	if can_move:
+		_left_teleporter.cancel()
+		_right_teleporter.press()
+
+
+func _on_teleport_right_action_released():
+	_right_teleporter.release()
 
 
 func _on_teleporter_teleported(global_position: Vector3):
