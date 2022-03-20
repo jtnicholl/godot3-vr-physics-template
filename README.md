@@ -21,8 +21,17 @@ For picking up an object, the hand node moves to the nearest grabbable point on 
 ## Todo
 This is already in a usable state but there is still some more to be done:
 - Add an option for continuous (non-teleport based) locomotion, based on the head or controller rotation
-- Teleporting with the right hand
+- Allow adjusting the positions of the hands relative to the controllers, so that they line up better with the player's real hands
 - Picking up objects with two hands
 - Code cleanup
+- Add documentation comments to public methods
 - Improve the demo room
 - Include default bindings for more than just the Vive controllers
+
+## Credits
+This project uses a stripped-down version of the OpenVR plugin by the GodotVR team, released under the MIT license. See [its license](addons/godot-openvr/LICENSE) for details.
+
+The VR glove model was created by Valve.
+
+## License
+This project is released under the MIT license. See the [license](LICENSE) file for details.
