@@ -49,7 +49,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://player/VRHand.gd"
 }, {
-"base": "ARVROrigin",
+"base": "Spatial",
 "class": "VRPlayer",
 "language": "GDScript",
 "path": "res://player/VRPlayer.gd"

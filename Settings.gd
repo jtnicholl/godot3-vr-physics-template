@@ -5,6 +5,14 @@ const SETTINGS_FILE_PATH := "user://settings.cfg"
 var msaa: int
 var fxaa: bool
 
+var teleporting_enabled: bool
+var continuous_locomotion_enabled: bool
+var locomotion_direction_source: int
+var locomotion_update_mode: int
+
+enum LocomotionDirectionSource { HEAD, LEFT_CONTROLLER, RIGHT_CONTROLLER }
+enum LocomotionUpdateMode { ONCE, CONTINUOUS }
+
 func load_settings(from_path: String = SETTINGS_FILE_PATH) -> int:
 	var config_file := ConfigFile.new()
 	var error_code := config_file.load(from_path)
@@ -12,8 +20,14 @@ func load_settings(from_path: String = SETTINGS_FILE_PATH) -> int:
 	Utility.set_framerate(config_file.get_value("performance", "framerate", 90))
 	msaa = config_file.get_value("performance", "msaa", Viewport.MSAA_2X)
 	fxaa = config_file.get_value("performance", "fxaa", false)
+	teleporting_enabled = config_file.get_value("teleporting", "enabled", true)
+	continuous_locomotion_enabled = config_file.get_value("continuous_locomotion", "enabled", false)
+	locomotion_direction_source = config_file.get_value("continuous_locomotion", "direction_source", \
+			LocomotionDirectionSource.HEAD)
+	locomotion_update_mode = config_file.get_value("continuous_locomotion", "update_mode", \
+			LocomotionUpdateMode.ONCE)
 	
-	return OK
+	return error_code
 
 
 func save_settings(to_path: String = SETTINGS_FILE_PATH) -> int:
@@ -22,6 +36,10 @@ func save_settings(to_path: String = SETTINGS_FILE_PATH) -> int:
 	config_file.set_value("performance", "framerate", Engine.iterations_per_second)
 	config_file.set_value("performance", "msaa", msaa)
 	config_file.set_value("performance", "fxaa", fxaa)
+	config_file.set_value("teleporting", "enabled", teleporting_enabled)
+	config_file.set_value("continuous_locomotion", "enabled", continuous_locomotion_enabled)
+	config_file.set_value("continuous_locomotion", "direction_source", locomotion_direction_source)
+	config_file.set_value("continuous_locomotion", "update_mode", locomotion_update_mode)
 	
 	return config_file.save(to_path)
 
@@ -29,3 +47,10 @@ func save_settings(to_path: String = SETTINGS_FILE_PATH) -> int:
 func apply_to_viewport(viewport: Viewport) -> void:
 	viewport.msaa = self.msaa
 	viewport.fxaa = self.fxaa
+
+
+func apply_to_player(player: VRPlayer) -> void:
+	player.teleporting_enabled = self.teleporting_enabled
+	player.continuous_locomotion_enabled = self.continuous_locomotion_enabled
+	player.locomotion_direction_source = self.locomotion_direction_source
+	player.locomotion_update_mode = self.locomotion_update_mode

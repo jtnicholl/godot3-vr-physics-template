@@ -30,6 +30,26 @@
 			"name" : "/actions/godot/in/grab",
 			"requirement" : "mandatory",
 			"type" : "boolean"
+		},
+		{
+			"name" : "/actions/godot/in/walk_forward",
+			"requirement" : "mandatory",
+			"type" : "boolean"
+		},
+		{
+			"name" : "/actions/godot/in/walk_backward",
+			"requirement" : "suggested",
+			"type" : "boolean"
+		},
+		{
+			"name" : "/actions/godot/in/walk_left",
+			"requirement" : "suggested",
+			"type" : "boolean"
+		},
+		{
+			"name" : "/actions/godot/in/walk_right",
+			"requirement" : "suggested",
+			"type" : "boolean"
 		}
     ],
 	"default_bindings" : [

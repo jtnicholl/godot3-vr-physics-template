@@ -20,7 +20,6 @@ For picking up an object, the hand node moves to the nearest grabbable point on 
 
 ## Todo
 This is already in a usable state but there is still some more to be done:
-- Add an option for continuous (non-teleport based) locomotion, based on the head or controller rotation
 - Allow adjusting the positions of the hands relative to the controllers, so that they line up better with the player's real hands
 - Picking up objects with two hands
 - Code cleanup

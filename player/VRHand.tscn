@@ -6,9 +6,10 @@
 extents = Vector3( 0.035, 0.01, 0.065 )
 
 [node name="VRHand" type="RigidBody"]
+process_priority = -1
 collision_layer = 4
 collision_mask = 3
-gravity_scale = 0.0
+custom_integrator = true
 contacts_reported = 2
 contact_monitor = true
 can_sleep = false

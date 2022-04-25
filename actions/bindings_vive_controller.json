@@ -18,6 +18,27 @@
 				},
 				{
 					"inputs" : {
+						"north" : {
+							"output" : "/actions/godot/in/walk_forward"
+						},
+						"south" : {
+							"output" : "/actions/godot/in/walk_backward"
+						},
+						"east" : {
+							"output" : "/actions/godot/in/walk_right"
+						},
+						"west" : {
+							"output" : "/actions/godot/in/walk_left"
+						}
+					},
+					"mode" : "dpad",
+					"parameters" : {
+						"sub_mode" : "click"
+					},
+					"path" : "/user/hand/left/input/trackpad"
+				},
+				{
+					"inputs" : {
 						"west" : {
 							"output" : "/actions/godot/in/turn_left"
 						},

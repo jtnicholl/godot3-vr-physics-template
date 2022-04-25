@@ -1,18 +1,39 @@
-class_name VRPlayer extends ARVROrigin
+class_name VRPlayer extends Spatial
 
 export(bool) var can_move := true
+export(float) var walk_speed := 1.0
 export(float) var impulse_multiplier := 0.2
 
-onready var _left_controller: VRController = $LeftController
-onready var _right_controller: VRController = $RightController
+var teleporting_enabled: bool
+var continuous_locomotion_enabled: bool
+var locomotion_direction_source: int
+var locomotion_update_mode: int
+
+onready var _body: KinematicBody = $KinematicBody
+onready var _collision_shape: CollisionShape = $KinematicBody/CollisionShape
+onready var _left_controller: VRController = $KinematicBody/ARVROrigin/LeftController
+onready var _right_controller: VRController = $KinematicBody/ARVROrigin/RightController
 onready var _left_hand: VRHand = $LeftHand
 onready var _right_hand: VRHand = $RightHand
-onready var _left_teleporter: Teleporter = $LeftController/Teleporter
-onready var _right_teleporter: Teleporter = $RightController/Teleporter
-onready var _camera: ARVRCamera = $Camera
+onready var _left_teleporter: Teleporter = $KinematicBody/ARVROrigin/LeftController/Teleporter
+onready var _right_teleporter: Teleporter = $KinematicBody/ARVROrigin/RightController/Teleporter
+onready var _camera: ARVRCamera = $KinematicBody/ARVROrigin/Camera
+
+onready var _shape: CapsuleShape = _collision_shape.shape
 
 var _left_pickup: Pickup = null
 var _right_pickup: Pickup = null
+var _walking_input := Vector2.ZERO
+var _locomotion_direction: float
+
+func _physics_process(delta: float):
+	_update_collision()
+	if can_move && continuous_locomotion_enabled && !_walking_input.is_equal_approx(Vector2.ZERO):
+		if locomotion_update_mode == Settings.LocomotionUpdateMode.CONTINUOUS:
+			_update_locomotion_direction()
+		var movement := _walking_input.rotated(-_locomotion_direction)
+		_body.move_and_slide(Vector3(movement.x, 0.0, movement.y) * walk_speed, Vector3.UP)
+
 
 func position_feet(global_position: Vector3) -> void:
 	var camera_offset := _camera.global_transform.origin - global_transform.origin
@@ -33,6 +54,13 @@ func rotate_head(radians: float) -> void:
 	global_translate(Vector3(camera_offset_difference.x, 0, camera_offset_difference.y))
 
 
+func _update_collision() -> void:
+	_collision_shape.translation.x = _camera.translation.x
+	_collision_shape.translation.z = _camera.translation.z
+	_collision_shape.translation.y = (_camera.translation.y + _shape.radius) / 2
+	_shape.height = _camera.translation.y - _shape.radius
+
+
 func _try_grab(tracker_hand: int) -> void:
 	var controller := _left_controller if tracker_hand == \
 			ARVRPositionalTracker.TRACKER_LEFT_HAND else _right_controller
@@ -50,8 +78,18 @@ func _try_grab(tracker_hand: int) -> void:
 	result.free()
 
 
+func _update_locomotion_direction() -> void:
+	match locomotion_direction_source:
+		Settings.LocomotionDirectionSource.HEAD:
+			_locomotion_direction = _camera.global_transform.basis.get_euler().y
+		Settings.LocomotionDirectionSource.LEFT_CONTROLLER:
+			_locomotion_direction = _left_controller.global_transform.basis.get_euler().y
+		Settings.LocomotionDirectionSource.RIGHT_CONTROLLER:
+			_locomotion_direction = _right_controller.global_transform.basis.get_euler().y
+
+
 func _on_teleport_left_action_pressed():
-	if can_move:
+	if can_move && teleporting_enabled:
 		_right_teleporter.cancel()
 		_left_teleporter.press()
 
@@ -89,7 +127,7 @@ func _on_grab_left_action_pressed():
 
 func _on_grab_left_action_released():
 	if is_instance_valid(_left_pickup):
-		_left_pickup.release($LeftHand.velocity * impulse_multiplier)
+		_left_pickup.release(_left_hand.velocity * impulse_multiplier)
 	_left_pickup = null
 
 
@@ -99,5 +137,45 @@ func _on_grab_right_action_pressed():
 
 func _on_grab_right_action_released():
 	if is_instance_valid(_right_pickup):
-		_right_pickup.release($RightHand.velocity * impulse_multiplier)
+		_right_pickup.release(_right_hand.velocity * impulse_multiplier)
 	_right_pickup = null
+
+
+func _on_walk_forward_action_pressed():
+	if can_move:
+		_walking_input.y = -1
+		_update_locomotion_direction()
+
+
+func _on_walk_forward_action_released():
+	_walking_input.y = 0
+
+
+func _on_walk_backward_action_pressed():
+	if can_move:
+		_walking_input.y = 1
+		_update_locomotion_direction()
+
+
+func _on_walk_backward_action_released():
+	_walking_input.y = 0
+
+
+func _on_walk_left_action_pressed():
+	if can_move:
+		_walking_input.x = -1
+		_update_locomotion_direction()
+
+
+func _on_walk_left_action_released():
+	_walking_input.x = 0
+
+
+func _on_walk_right_action_pressed():
+	if can_move:
+		_walking_input.x = 1
+		_update_locomotion_direction()
+
+
+func _on_walk_right_action_released():
+	_walking_input.x = 0

@@ -1,6 +1,6 @@
 class_name VRHand extends RigidBody
 
-export (NodePath) var controller
+export(NodePath) var controller
 
 onready var _controller: VRController = get_node(controller)
 onready var _glove: VRGlove = $VRGlove
@@ -16,7 +16,7 @@ func _ready():
 	assert(is_instance_valid(_controller), "Controller path was not set correctly for " + name)
 
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	velocity = (global_transform.origin - _previous_position) / delta
 	_previous_position = global_transform.origin
 
@@ -34,8 +34,8 @@ func _integrate_forces(state: PhysicsDirectBodyState):
 
 
 func _copy_rotation(state: PhysicsDirectBodyState, weight: float) -> void:
-	state.transform.basis = state.transform.basis.slerp(_controller.global_transform.basis, \
-			min(weight, 1.0))
+	state.transform.basis = state.transform.basis.slerp( \
+			_controller.global_transform.basis.orthonormalized(), min(weight, 1.0))
 	state.angular_velocity = Vector3.ZERO
 
 
