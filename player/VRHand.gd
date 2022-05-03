@@ -2,6 +2,8 @@ class_name VRHand extends RigidBody
 
 export(NodePath) var controller
 
+var offset_rotation: Basis
+
 onready var _controller: VRController = get_node(controller)
 onready var _glove: VRGlove = $VRGlove
 onready var _positive_corner: Vector3 = $Palm.shape.extents * Vector3(1, -1, 1)
@@ -35,7 +37,9 @@ func _integrate_forces(state: PhysicsDirectBodyState):
 
 func _copy_rotation(state: PhysicsDirectBodyState, weight: float) -> void:
 	state.transform.basis = state.transform.basis.slerp( \
-			_controller.global_transform.basis.orthonormalized(), min(weight, 1.0))
+			(_controller.global_transform.basis * offset_rotation).orthonormalized(), \
+			min(weight, 1.0)
+	)
 	state.angular_velocity = Vector3.ZERO
 
 

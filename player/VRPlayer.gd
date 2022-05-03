@@ -26,7 +26,7 @@ var _right_pickup: Pickup = null
 var _walking_input := Vector2.ZERO
 var _locomotion_direction: float
 
-func _physics_process(delta: float):
+func _physics_process(_delta: float):
 	_update_collision()
 	if can_move && continuous_locomotion_enabled && !_walking_input.is_equal_approx(Vector2.ZERO):
 		if locomotion_update_mode == Settings.LocomotionUpdateMode.CONTINUOUS:
@@ -52,6 +52,16 @@ func rotate_head(radians: float) -> void:
 	var camera_offset_difference := camera_offset_2d - camera_offset_2d.rotated(radians)
 	rotate_y(-radians)
 	global_translate(Vector3(camera_offset_difference.x, 0, camera_offset_difference.y))
+
+
+func set_hand_offset(position: Vector3, rotation: Vector3) -> void:
+	$RightHandAnchor.offset_position = position
+	position.x = -position.x
+	$LeftHandAnchor.offset_position = position
+	_right_hand.offset_rotation = Basis(rotation)
+	rotation.y = -rotation.y
+	rotation.z = -rotation.z
+	_left_hand.offset_rotation = Basis(rotation)
 
 
 func _update_collision() -> void:

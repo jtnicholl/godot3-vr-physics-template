@@ -20,11 +20,11 @@ For picking up an object, the hand node moves to the nearest grabbable point on 
 
 ## Todo
 This is already in a usable state but there is still some more to be done:
-- Allow adjusting the positions of the hands relative to the controllers, so that they line up better with the player's real hands
 - Picking up objects with two hands
 - Code cleanup
 - Add documentation comments to public methods
 - Improve the demo room
+- Allow adjusting the offset of the hands in-game, not just through the config file
 - Include default bindings for more than just the Vive controllers
 
 ## Credits
