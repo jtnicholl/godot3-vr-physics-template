@@ -26,7 +26,6 @@ func _physics_process(_delta: float):
 
 func press() -> void:
 	enabled = true
-	_collision_check.show()
 	set_physics_process(true)
 
 
