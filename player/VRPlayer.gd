@@ -3,6 +3,7 @@ class_name VRPlayer extends Spatial
 export(bool) var can_move := true
 export(float) var walk_speed := 1.0
 export(float) var impulse_multiplier := 0.2
+export(float) var fall_speed := 1.0
 
 var teleporting_enabled: bool
 var continuous_locomotion_enabled: bool
@@ -32,11 +33,14 @@ func _physics_process(_delta: float):
 		if locomotion_update_mode == Settings.LocomotionUpdateMode.CONTINUOUS:
 			_update_locomotion_direction()
 		var movement := _walking_input.rotated(-_locomotion_direction)
-		_body.move_and_slide(Vector3(movement.x, 0.0, movement.y) * walk_speed, Vector3.UP)
+		_body.move_and_slide(Vector3(movement.x, -fall_speed, movement.y) * walk_speed, Vector3.UP)
+	elif !_body.is_on_floor():
+		_body.move_and_slide(Vector3.DOWN * fall_speed, Vector3.UP)
 
 
 func position_feet(global_position: Vector3) -> void:
 	var camera_offset := _camera.global_transform.origin - global_transform.origin
+	_body.translation.y = 0
 	camera_offset.y = 0
 	global_transform.origin = global_position - camera_offset
 
