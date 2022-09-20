@@ -14,12 +14,22 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://player/GrabResult.gd"
 }, {
+"base": "RigidBody",
+"class": "Grabbable",
+"language": "GDScript",
+"path": "res://props/Grabbable.gd"
+}, {
 "base": "KinematicBody",
 "class": "HandAnchor",
 "language": "GDScript",
 "path": "res://player/HandAnchor.gd"
 }, {
-"base": "RigidBody",
+"base": "Grabbable",
+"class": "Moveable",
+"language": "GDScript",
+"path": "res://props/Moveable.gd"
+}, {
+"base": "Grabbable",
 "class": "Pickup",
 "language": "GDScript",
 "path": "res://props/Pickup.gd"
@@ -56,7 +66,9 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "GrabResult": "",
+"Grabbable": "",
 "HandAnchor": "",
+"Moveable": "",
 "Pickup": "",
 "Teleporter": "",
 "Utility": "",

@@ -1,10 +1,10 @@
 class_name GrabResult extends Reference
 
 
-var pickup: Pickup
+var grabbable: Grabbable
 var grab_point: Spatial
 
 
-func _init(pickup: Pickup, grab_point: Spatial):
-	self.pickup = pickup
+func _init(grabbable: Grabbable, grab_point: Spatial):
+	self.grabbable = grabbable
 	self.grab_point = grab_point

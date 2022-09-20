@@ -26,21 +26,21 @@ func update_mesh() -> void:
 
 
 func try_grab(max_distance := INF) -> GrabResult:
-	var closest_pickup: Pickup = null
+	var closest_grabbable: Grabbable = null
 	var closest_point: Spatial = null
 	var closest_distance := max_distance
 	for current_body in _grab_range.get_overlapping_bodies():
-		if not (current_body is Pickup):
+		if not (current_body is Grabbable):
 			continue
 		for current_point in current_body.grab_points:
 			var current_distance := \
 					(current_point as Spatial).global_transform.origin \
 					.distance_squared_to(self.global_transform.origin)
 			if _compare(current_point, current_distance, closest_point, closest_distance):
-				closest_pickup = current_body
+				closest_grabbable = current_body
 				closest_point = current_point
 				closest_distance = current_distance
-	return GrabResult.new(closest_pickup, closest_point)
+	return GrabResult.new(closest_grabbable, closest_point)
 
 
 func _compare(point_a: Spatial, distance_a: float, point_b: Spatial, distance_b: float) -> bool:

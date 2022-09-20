@@ -16,7 +16,9 @@ This template takes a different approach to hands. For each hand it involves:
 - A hand node, which is a RigidBody that uses `_integrate_forces` to losely copy the rotation of the controller. This is also where the hand is visually displayed.
 - A PinJoint node that moves the hand node to the hand anchor node. Since the hand anchor won't pass through walls, this is never too extreme of a force.
 
-For picking up an object, the hand node moves to the nearest grabbable point on the pickup and then the pickup is reparented to the hand. However, instead of just disabling collision on the picked up object, its collision bounds also get reparented to the hand. This effectively turns the object into an extension of the hand's collision bounds, keeping them together while also preventing them from passing through walls.
+Grabbing objects can happen one of two ways, depending on the object being grabbed. For both, the first step is the hand node moves to the nearest grabbable point.
+For objects that extend `Pickup`, the pickup is then reparented to the hand. However, instead of just disabling collision on the picked up object, its collision bounds also get reparented to the hand. This effectively turns the object into an extension of the hand's collision bounds, keeping them together precisely while also preventing them from passing through walls.
+Other grabbable objects, such as doors and drawers, should extend `Moveable`. These objects are connected to the hand with a joint.
 
 ## Todo
 This is already in a usable state but there is still some more to be done:

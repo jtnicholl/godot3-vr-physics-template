@@ -1,9 +1,7 @@
-class_name Pickup extends RigidBody
+class_name Pickup extends Grabbable
 
 
 export(bool) var throwable := true
-
-onready var grab_points := $GrabPoints.get_children()
 
 var _holder: Spatial = null
 var _collision_shapes := []
@@ -11,7 +9,6 @@ onready var _original_parent := get_parent()
 
 
 func _ready():
-	assert(not grab_points.empty(), name + " has no valid grab points")
 	for current_child in get_children():
 		if current_child is CollisionShape:
 			_collision_shapes.append(current_child)
@@ -21,7 +18,7 @@ func _exit_tree():
 	assert(_holder == null, name + " was removed from the tree while still being held")
 
 
-func pick_up(by: Spatial) -> void:
+func grab(by: PhysicsBody) -> void:
 	if is_instance_valid(_holder):
 		return
 	_reparent_self(by)

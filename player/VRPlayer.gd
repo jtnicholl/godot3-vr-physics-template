@@ -11,8 +11,8 @@ var continuous_locomotion_enabled: bool
 var locomotion_direction_source: int
 var locomotion_update_mode: int
 
-var _left_pickup: Pickup = null
-var _right_pickup: Pickup = null
+var _left_grabbable: Grabbable = null
+var _right_grabbable: Grabbable = null
 var _walking_input := Vector2.ZERO
 var _locomotion_direction: float
 
@@ -81,15 +81,15 @@ func _try_grab(tracker_hand: int) -> void:
 			ARVRPositionalTracker.TRACKER_LEFT_HAND else _right_controller
 	var hand := _left_hand  if tracker_hand == \
 			ARVRPositionalTracker.TRACKER_LEFT_HAND else _right_hand
-	var result := controller.try_grab()
-	if result.pickup != null:
+	var result := controller.try_grab(0.2)
+	if result.grabbable != null:
 		hand.global_transform = result.grab_point.global_transform
 		hand.translate_object_local(controller.grab_offset)
-		result.pickup.pick_up(hand)
+		result.grabbable.grab(hand)
 		if tracker_hand == ARVRPositionalTracker.TRACKER_LEFT_HAND:
-			_left_pickup = result.pickup
+			_left_grabbable = result.grabbable
 		else:
-			_right_pickup = result.pickup
+			_right_grabbable = result.grabbable
 
 
 func _update_locomotion_direction() -> void:
@@ -140,9 +140,9 @@ func _on_grab_left_action_pressed():
 
 
 func _on_grab_left_action_released():
-	if is_instance_valid(_left_pickup):
-		_left_pickup.release(_left_hand.velocity * impulse_multiplier)
-	_left_pickup = null
+	if is_instance_valid(_left_grabbable):
+		_left_grabbable.release(_left_hand.velocity * impulse_multiplier)
+	_left_grabbable = null
 
 
 func _on_grab_right_action_pressed():
@@ -150,9 +150,9 @@ func _on_grab_right_action_pressed():
 
 
 func _on_grab_right_action_released():
-	if is_instance_valid(_right_pickup):
-		_right_pickup.release(_right_hand.velocity * impulse_multiplier)
-	_right_pickup = null
+	if is_instance_valid(_right_grabbable):
+		_right_grabbable.release(_right_hand.velocity * impulse_multiplier)
+	_right_grabbable = null
 
 
 func _on_walk_forward_action_pressed():
