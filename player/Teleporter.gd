@@ -1,14 +1,16 @@
 class_name Teleporter extends RayCast
 
+
 signal teleported(global_position)
 
 const _OK_TELEPORT_COLOR = Color(0xADFFC8FF)
 const _NO_TELEPORT_COLOR = Color(0xFF4000FF)
 
-export (float, 1.0, 10.0, 1.0) var max_distance = 5.0
+export(float, 1.0, 10.0, 1.0) var max_distance := 5.0
 
-onready var _collision_check: Area = $CollisionCheck
-onready var _target_material: SpatialMaterial = $CollisionCheck/Target["material/0"]
+onready var _collision_check := $CollisionCheck as Area
+onready var _target_material := $CollisionCheck/Target["material/0"] as SpatialMaterial
+
 
 func _ready():
 	set_physics_process(false)
@@ -30,7 +32,7 @@ func press() -> void:
 
 
 func release() -> void:
-	if enabled && _can_teleport():
+	if enabled and _can_teleport():
 		emit_signal("teleported", get_collision_point())
 	_stop()
 
@@ -46,6 +48,6 @@ func _stop() -> void:
 
 
 func _can_teleport() -> bool:
-	return is_colliding() && \
-			_collision_check.get_overlapping_bodies().empty() && \
+	return is_colliding() and \
+			_collision_check.get_overlapping_bodies().empty() and \
 			global_transform.origin.distance_to(get_collision_point()) <= max_distance

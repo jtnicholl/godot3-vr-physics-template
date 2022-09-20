@@ -1,11 +1,12 @@
 class_name VRController extends ARVRController
 
-onready var grab_offset: Vector3 = -$GrabRange.transform.origin
 
-onready var _mesh: MeshInstance = $Mesh
-onready var _grab_range: Area = $GrabRange
+onready var grab_offset: Vector3 = -($GrabRange as Area).transform.origin
 
 var _held_pickup: Pickup = null
+onready var _mesh := $Mesh as MeshInstance
+onready var _grab_range := $GrabRange as Area
+
 
 func show_mesh() -> void:
 	_mesh.show()
@@ -29,11 +30,11 @@ func try_grab(max_distance := INF) -> GrabResult:
 	var closest_point: Spatial = null
 	var closest_distance := max_distance
 	for current_body in _grab_range.get_overlapping_bodies():
-		if !(current_body is Pickup):
+		if not (current_body is Pickup):
 			continue
 		for current_point in current_body.grab_points:
-			var current_distance: float = \
-					current_point.global_transform.origin \
+			var current_distance := \
+					(current_point as Spatial).global_transform.origin \
 					.distance_squared_to(self.global_transform.origin)
 			if _compare(current_point, current_distance, closest_point, closest_distance):
 				closest_pickup = current_body

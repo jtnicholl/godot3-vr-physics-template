@@ -1,12 +1,14 @@
 class_name VRGlove extends Spatial
 
-onready var _tree: AnimationTree = $AnimationTree
 
 var _flattened := false
 
+onready var _tree := $AnimationTree as AnimationTree
+
+
 func _process(delta: float):
 	_tree["parameters/blend/blend_amount"] = clamp(_tree["parameters/blend/blend_amount"] \
-			 + (delta*-4 if _flattened else delta*4), -1, 0)
+			 + (delta*-4 if _flattened else delta*4), -1.0, 0.0)
 
 
 func flatten() -> void:

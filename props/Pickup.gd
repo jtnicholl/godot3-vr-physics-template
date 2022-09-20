@@ -1,15 +1,17 @@
 class_name Pickup extends RigidBody
 
+
 export(bool) var throwable := true
 
-onready var grab_points: Array = $GrabPoints.get_children()
+onready var grab_points := $GrabPoints.get_children()
 
-onready var _original_parent := get_parent()
 var _holder: Spatial = null
 var _collision_shapes := []
+onready var _original_parent := get_parent()
+
 
 func _ready():
-	assert(!grab_points.empty(), name + " has no valid grab points")
+	assert(not grab_points.empty(), name + " has no valid grab points")
 	for current_child in get_children():
 		if current_child is CollisionShape:
 			_collision_shapes.append(current_child)
@@ -46,7 +48,7 @@ func _reparent_self(to: Spatial) -> void:
 
 func _reparent_shapes(to: Spatial) -> void:
 	for current_shape in _collision_shapes:
-		var original_transform: Transform = current_shape.global_transform
+		var original_transform := (current_shape as CollisionShape).global_transform
 		current_shape.get_parent().remove_child(current_shape)
 		to.add_child(current_shape)
 		current_shape.global_transform = original_transform

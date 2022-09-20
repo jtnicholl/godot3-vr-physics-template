@@ -1,5 +1,6 @@
 class_name VRPlayer extends Spatial
 
+
 export(bool) var can_move := true
 export(float) var walk_speed := 1.0
 export(float) var impulse_multiplier := 0.2
@@ -10,31 +11,31 @@ var continuous_locomotion_enabled: bool
 var locomotion_direction_source: int
 var locomotion_update_mode: int
 
-onready var _body: KinematicBody = $KinematicBody
-onready var _collision_shape: CollisionShape = $KinematicBody/CollisionShape
-onready var _left_controller: VRController = $KinematicBody/ARVROrigin/LeftController
-onready var _right_controller: VRController = $KinematicBody/ARVROrigin/RightController
-onready var _left_hand: VRHand = $LeftHand
-onready var _right_hand: VRHand = $RightHand
-onready var _left_teleporter: Teleporter = $KinematicBody/ARVROrigin/LeftController/Teleporter
-onready var _right_teleporter: Teleporter = $KinematicBody/ARVROrigin/RightController/Teleporter
-onready var _camera: ARVRCamera = $KinematicBody/ARVROrigin/Camera
-
-onready var _shape: CapsuleShape = _collision_shape.shape
-
 var _left_pickup: Pickup = null
 var _right_pickup: Pickup = null
 var _walking_input := Vector2.ZERO
 var _locomotion_direction: float
 
+onready var _body := $KinematicBody as KinematicBody
+onready var _collision_shape := $KinematicBody/CollisionShape as CollisionShape
+onready var _left_controller := $KinematicBody/ARVROrigin/LeftController as VRController
+onready var _right_controller := $KinematicBody/ARVROrigin/RightController as VRController
+onready var _left_hand := $LeftHand as VRHand
+onready var _right_hand := $RightHand as VRHand
+onready var _left_teleporter := $KinematicBody/ARVROrigin/LeftController/Teleporter as Teleporter
+onready var _right_teleporter := $KinematicBody/ARVROrigin/RightController/Teleporter as Teleporter
+onready var _camera := $KinematicBody/ARVROrigin/Camera as ARVRCamera
+onready var _shape := _collision_shape.shape as CapsuleShape
+
+
 func _physics_process(_delta: float):
 	_update_collision()
-	if can_move && continuous_locomotion_enabled && !_walking_input.is_equal_approx(Vector2.ZERO):
+	if can_move and continuous_locomotion_enabled and not _walking_input.is_equal_approx(Vector2.ZERO):
 		if locomotion_update_mode == Settings.LocomotionUpdateMode.CONTINUOUS:
 			_update_locomotion_direction()
 		var movement := _walking_input.rotated(-_locomotion_direction)
 		_body.move_and_slide(Vector3(movement.x, -fall_speed, movement.y) * walk_speed, Vector3.UP)
-	elif !_body.is_on_floor():
+	elif not _body.is_on_floor():
 		_body.move_and_slide(Vector3.DOWN * fall_speed, Vector3.UP)
 
 
@@ -89,7 +90,6 @@ func _try_grab(tracker_hand: int) -> void:
 			_left_pickup = result.pickup
 		else:
 			_right_pickup = result.pickup
-	result.free()
 
 
 func _update_locomotion_direction() -> void:
@@ -103,7 +103,7 @@ func _update_locomotion_direction() -> void:
 
 
 func _on_teleport_left_action_pressed():
-	if can_move && teleporting_enabled:
+	if can_move and teleporting_enabled:
 		_right_teleporter.cancel()
 		_left_teleporter.press()
 

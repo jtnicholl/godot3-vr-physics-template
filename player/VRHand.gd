@@ -1,18 +1,20 @@
 class_name VRHand extends RigidBody
 
+
 export(NodePath) var controller
 
 var offset_rotation: Basis
-
-onready var _controller: VRController = get_node(controller)
-onready var _glove: VRGlove = $VRGlove
-onready var _positive_corner: Vector3 = $Palm.shape.extents * Vector3(1, -1, 1)
+var velocity := Vector3.ZERO
 
 var _time_since_contact := 1.0
 var _touching_flat_surface := false
 
 var _previous_position := Vector3.ZERO
-var velocity := Vector3.ZERO
+
+onready var _controller := get_node(controller) as VRController
+onready var _glove := $VRGlove as VRGlove
+onready var _positive_corner: Vector3 = $Palm.shape.extents * Vector3(1, -1, 1)
+
 
 func _ready():
 	assert(is_instance_valid(_controller), "Controller path was not set correctly for " + name)
@@ -46,4 +48,4 @@ func _copy_rotation(state: PhysicsDirectBodyState, weight: float) -> void:
 func _contact_is_on_lower_corner(local_position: Vector3) -> bool:
 	local_position.x = abs(local_position.x)
 	local_position.z = abs(local_position.z)
-	return local_position.distance_squared_to(_positive_corner) < 0.0001
+	return is_zero_approx(local_position.distance_squared_to(_positive_corner))

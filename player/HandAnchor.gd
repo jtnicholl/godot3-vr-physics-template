@@ -1,9 +1,12 @@
 class_name HandAnchor extends KinematicBody
 
-export (NodePath) var controller
-onready var _controller: VRController = get_node(controller)
+
+export(NodePath) var controller
 
 var offset_position: Vector3
+
+onready var _controller := get_node(controller) as VRController
+
 
 func _ready():
 	assert(is_instance_valid(_controller), "Controller path was not set correctly for " + name)
@@ -11,7 +14,7 @@ func _ready():
 
 func _physics_process(delta: float):
 	var distance := _controller.to_global(offset_position) - self.global_transform.origin
-	if distance.length_squared() < 1:
+	if distance.length_squared() < 1.0:
 		move_and_slide(distance / delta)
 	else:
 		_copy_position()
