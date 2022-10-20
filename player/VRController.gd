@@ -3,7 +3,6 @@ class_name VRController extends ARVRController
 
 onready var grab_offset: Vector3 = -($GrabRange as Area).transform.origin
 
-var _held_pickup: Pickup = null
 onready var _mesh := $Mesh as MeshInstance
 onready var _grab_range := $GrabRange as Area
 
