@@ -1,5 +1,6 @@
 class_name Utility
 
+
 static func initialize_openvr(viewport: Viewport) -> bool:
 	var openvr_config := preload("res://addons/godot-openvr/OpenVRConfig.gdns").new()
 	openvr_config.default_action_set = "/actions/godot"

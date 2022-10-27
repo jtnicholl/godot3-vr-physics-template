@@ -2,17 +2,17 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/VRGlove.glb-7f4f4fa23e567edbb4ca7dcd47e75353.scn"
+path="res://.import/vr_glove.glb-a94263fcf39373305ffae6759fa9bde9.scn"
 
 [deps]
 
-source_file="res://assets/vr_glove/VRGlove.glb"
-dest_files=[ "res://.import/VRGlove.glb-7f4f4fa23e567edbb4ca7dcd47e75353.scn" ]
+source_file="res://player/vr_glove/vr_glove.glb"
+dest_files=[ "res://.import/vr_glove.glb-a94263fcf39373305ffae6759fa9bde9.scn" ]
 
 [params]
 
 nodes/root_type="Spatial"
-nodes/root_name="Scene Root"
+nodes/root_name="VRGlove"
 nodes/root_scale=1.0
 nodes/custom_script=""
 nodes/storage=0

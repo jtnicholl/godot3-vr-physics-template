@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://props/Pickup.gd" type="Script" id=1]
+[ext_resource path="res://grabbables/pickup.gd" type="Script" id=1]
 
 [node name="Pickup" type="RigidBody"]
 collision_layer = 2

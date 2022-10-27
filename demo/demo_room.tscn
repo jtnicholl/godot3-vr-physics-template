@@ -1,11 +1,11 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://DemoRoom.gd" type="Script" id=1]
-[ext_resource path="res://player/VRPlayer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://props/Block.tscn" type="PackedScene" id=3]
-[ext_resource path="res://props/Pinwheel.tscn" type="PackedScene" id=4]
-[ext_resource path="res://props/RotatingDoor.tscn" type="PackedScene" id=5]
-[ext_resource path="res://props/Desk.tscn" type="PackedScene" id=6]
+[ext_resource path="res://demo/demo_room.gd" type="Script" id=1]
+[ext_resource path="res://player/vr_player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://demo/block.tscn" type="PackedScene" id=3]
+[ext_resource path="res://demo/pinwheel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://demo/rotating_door.tscn" type="PackedScene" id=5]
+[ext_resource path="res://demo/desk.tscn" type="PackedScene" id=6]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 3, 0.05, 3 )

@@ -12,57 +12,57 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "GrabResult",
 "language": "GDScript",
-"path": "res://player/GrabResult.gd"
+"path": "res://player/grab_result.gd"
 }, {
 "base": "RigidBody",
 "class": "Grabbable",
 "language": "GDScript",
-"path": "res://props/Grabbable.gd"
+"path": "res://grabbables/grabbable.gd"
 }, {
-"base": "KinematicBody",
+"base": "Reference",
 "class": "HandAnchor",
 "language": "GDScript",
-"path": "res://player/HandAnchor.gd"
+"path": "res://player/hand_anchor.gd"
 }, {
 "base": "Grabbable",
 "class": "Moveable",
 "language": "GDScript",
-"path": "res://props/Moveable.gd"
+"path": "res://grabbables/moveable.gd"
 }, {
 "base": "Grabbable",
 "class": "Pickup",
 "language": "GDScript",
-"path": "res://props/Pickup.gd"
+"path": "res://grabbables/pickup.gd"
 }, {
 "base": "RayCast",
 "class": "Teleporter",
 "language": "GDScript",
-"path": "res://player/Teleporter.gd"
+"path": "res://player/teleporter.gd"
 }, {
 "base": "Reference",
 "class": "Utility",
 "language": "GDScript",
-"path": "res://Utility.gd"
+"path": "res://utility.gd"
 }, {
 "base": "ARVRController",
 "class": "VRController",
 "language": "GDScript",
-"path": "res://player/VRController.gd"
+"path": "res://player/vr_controller.gd"
 }, {
 "base": "Spatial",
 "class": "VRGlove",
 "language": "GDScript",
-"path": "res://player/VRGlove.gd"
+"path": "res://player/vr_glove.gd"
 }, {
 "base": "RigidBody",
 "class": "VRHand",
 "language": "GDScript",
-"path": "res://player/VRHand.gd"
+"path": "res://player/vr_hand.gd"
 }, {
 "base": "Spatial",
 "class": "VRPlayer",
 "language": "GDScript",
-"path": "res://player/VRPlayer.gd"
+"path": "res://player/vr_player.gd"
 } ]
 _global_script_class_icons={
 "GrabResult": "",
@@ -81,12 +81,12 @@ _global_script_class_icons={
 [application]
 
 config/name="VR Template"
-run/main_scene="res://DemoRoom.tscn"
-config/icon="res://assets/icon.png"
+run/main_scene="res://demo/demo_room.tscn"
+config/icon="res://icon.png"
 
 [autoload]
 
-Settings="*res://Settings.gd"
+Settings="*res://settings.gd"
 
 [debug]
 
@@ -119,4 +119,4 @@ gles3/shaders/shader_compilation_mode=2
 gles3/shaders/max_simultaneous_compiles.mobile=2
 gles3/shaders/shader_cache_size_mb.mobile=256
 quality/filters/use_debanding=true
-environment/default_environment="res://assets/default_env.tres"
+environment/default_environment="res://default_env.tres"

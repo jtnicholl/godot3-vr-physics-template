@@ -1,5 +1,6 @@
 extends Node
 
+
 const SETTINGS_FILE_PATH := "user://settings.cfg"
 
 enum LocomotionDirectionSource { HEAD, LEFT_CONTROLLER, RIGHT_CONTROLLER }
@@ -15,6 +16,7 @@ var locomotion_update_mode: int
 
 var hand_offset_position: Vector3
 var hand_offset_rotation: Vector3
+
 
 func load_settings(from_path: String = SETTINGS_FILE_PATH) -> int:
 	var config_file := ConfigFile.new()

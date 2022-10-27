@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/hands_normal.png-cb126aa4d2adfe292dbf546ed7ad8630.s3tc.stex"
-path.etc2="res://.import/hands_normal.png-cb126aa4d2adfe292dbf546ed7ad8630.etc2.stex"
+path.s3tc="res://.import/hands_normal.png-d9f3637f2bc3c31d7ae7987901f3f894.s3tc.stex"
+path.etc2="res://.import/hands_normal.png-d9f3637f2bc3c31d7ae7987901f3f894.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/vr_glove/hands_normal.png"
-dest_files=[ "res://.import/hands_normal.png-cb126aa4d2adfe292dbf546ed7ad8630.s3tc.stex", "res://.import/hands_normal.png-cb126aa4d2adfe292dbf546ed7ad8630.etc2.stex" ]
+source_file="res://player/vr_glove/hands_normal.png"
+dest_files=[ "res://.import/hands_normal.png-d9f3637f2bc3c31d7ae7987901f3f894.s3tc.stex", "res://.import/hands_normal.png-d9f3637f2bc3c31d7ae7987901f3f894.etc2.stex" ]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/vr_glove/VRGlove.glb" type="PackedScene" id=1]
-[ext_resource path="res://player/VRGlove.gd" type="Script" id=2]
+[ext_resource path="res://player/vr_glove/vr_glove.glb" type="PackedScene" id=1]
+[ext_resource path="res://player/vr_glove.gd" type="Script" id=2]
 
 [sub_resource type="AnimationNodeBlend3" id=5]
 

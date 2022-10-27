@@ -20,4 +20,4 @@ func rest() -> void:
 
 
 func grip() -> void:
-	pass
+	pass # TODO

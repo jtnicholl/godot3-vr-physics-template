@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/hands_albedo.png-9cd4d30b852a413293aff941fb17bfb2.s3tc.stex"
-path.etc2="res://.import/hands_albedo.png-9cd4d30b852a413293aff941fb17bfb2.etc2.stex"
+path.s3tc="res://.import/teleport_target.png-e2393ee79d5471be6a72f3b8ae322ac0.s3tc.stex"
+path.etc2="res://.import/teleport_target.png-e2393ee79d5471be6a72f3b8ae322ac0.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/vr_glove/hands_albedo.png"
-dest_files=[ "res://.import/hands_albedo.png-9cd4d30b852a413293aff941fb17bfb2.s3tc.stex", "res://.import/hands_albedo.png-9cd4d30b852a413293aff941fb17bfb2.etc2.stex" ]
+source_file="res://player/textures/teleport_target.png"
+dest_files=[ "res://.import/teleport_target.png-e2393ee79d5471be6a72f3b8ae322ac0.s3tc.stex", "res://.import/teleport_target.png-e2393ee79d5471be6a72f3b8ae322ac0.etc2.stex" ]
 
 [params]
 
