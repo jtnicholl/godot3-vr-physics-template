@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://grabbables/grabbable.gd"
 }, {
-"base": "Reference",
+"base": "KinematicBody",
 "class": "HandAnchor",
 "language": "GDScript",
 "path": "res://player/hand_anchor.gd"
