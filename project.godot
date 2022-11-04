@@ -114,9 +114,9 @@ singletons=[ "res://addons/godot-openvr/godot_openvr.gdnlib" ]
 
 [rendering]
 
+quality/driver/fallback_to_gles2=true
 threads/thread_model=2
 gles3/shaders/shader_compilation_mode=2
 gles3/shaders/max_simultaneous_compiles.mobile=2
 gles3/shaders/shader_cache_size_mb.mobile=256
 quality/filters/use_debanding=true
-environment/default_environment="res://default_env.tres"

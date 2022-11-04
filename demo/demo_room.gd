@@ -6,6 +6,7 @@ func _ready():
 	Utility.initialize_openvr(viewport)
 	Settings.apply_to_viewport(viewport)
 	Settings.apply_to_player($VRPlayer)
+	$RotatingDoor.add_collision_exception_with($Doorframe)
 
 
 func _exit_tree():

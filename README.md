@@ -25,14 +25,16 @@ This is already in a usable state but there is still some more to be done:
 - Picking up objects with two hands
 - Code cleanup
 - Add documentation comments to public methods
-- Improve the demo room
 - Allow adjusting the offset of the hands in-game, not just through the config file
 - Include default bindings for more than just the Vive controllers
+- Fix known issue: The door in the demo room swings too far and can pass through the wall
 
 ## Credits
 This project uses a stripped-down version of the OpenVR plugin by the GodotVR team, released under the MIT license. See [its license](addons/godot-openvr/LICENSE) for details.
 
 The VR glove model was created by Valve.
+
+The textures used for the demo room, with the exception of those used for the beach balls, lamp shades, and desk drawer knobs, are from [ambientCG](https://ambientcg.com/) and are in the public domain.
 
 ## License
 This project is released under the MIT license. See the [license](LICENSE) file for details.

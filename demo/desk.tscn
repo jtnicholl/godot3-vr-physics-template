@@ -1,60 +1,92 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://demo/desk.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://demo/meshes/desk.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://demo/desk_drawer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://demo/materials/wood.tres" type="Material" id=3]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 1, 0.05, 0.4 )
-
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.05, 0.5, 0.4 )
+margin = 0.005
+extents = Vector3( 0.59, 0.01, 0.3 )
 
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 0.4, 0.05, 0.4 )
+margin = 0.005
+extents = Vector3( 0.17, 0.01, 0.3 )
 
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.3, 0.05, 0.4 )
+[sub_resource type="BoxShape" id=7]
+margin = 0.005
+extents = Vector3( 0.01, 0.13, 0.3 )
 
-[sub_resource type="BoxShape" id=5]
-extents = Vector3( 0.4, 0.3, 0.05 )
+[sub_resource type="BoxShape" id=8]
+margin = 0.005
+extents = Vector3( 0.17, 0.13, 0.025 )
 
 [sub_resource type="BoxShape" id=6]
-extents = Vector3( 0.2, 0.01, 0.01 )
+margin = 0.005
+extents = Vector3( 0.12, 0.01, 0.01 )
+
+[sub_resource type="BoxShape" id=9]
+margin = 0.005
+extents = Vector3( 0.01, 0.35, 0.01 )
 
 [node name="Desk" type="Spatial"]
 
 [node name="StaticBody" type="StaticBody" parent="."]
 
 [node name="Top" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0.4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69, 0.3 )
 shape = SubResource( 1 )
 
-[node name="Left" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 0.5, 0.4 )
-shape = SubResource( 2 )
-
-[node name="Right" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 0.5, 0.4 )
-shape = SubResource( 2 )
-
-[node name="DrawerBottom" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.45, 0.4 )
+[node name="DrawersBottom" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.45, 0.3 )
 shape = SubResource( 3 )
 
-[node name="DrawerSide" type="CollisionShape" parent="StaticBody"]
-transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.25, 0.7, 0.4 )
-shape = SubResource( 4 )
+[node name="DrawersSeparator" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.57, 0.3 )
+shape = SubResource( 3 )
 
-[node name="DrawerBack" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.7, 0.05 )
-shape = SubResource( 5 )
+[node name="DrawersLeft" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, 0.57, 0.3 )
+shape = SubResource( 7 )
 
-[node name="DrawerStopper" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.89, 0.7 )
+[node name="DrawersRight" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.56, 0.57, 0.3 )
+shape = SubResource( 7 )
+
+[node name="DrawersBack" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.57, 0.035 )
+shape = SubResource( 8 )
+
+[node name="DrawerStopperTop" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.67, 0.55 )
 shape = SubResource( 6 )
 
-[node name="DeskMesh" type="MeshInstance" parent="."]
-mesh = ExtResource( 1 )
+[node name="DrawerStopperBottom" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.55, 0.55 )
+shape = SubResource( 6 )
 
-[node name="Drawer" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.5, 0.1 )
+[node name="Leg1" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 0.35, 0.01 )
+shape = SubResource( 9 )
+
+[node name="Leg2" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.58, 0.35, 0.59 )
+shape = SubResource( 9 )
+
+[node name="Leg3" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58, 0.35, 0.01 )
+shape = SubResource( 9 )
+
+[node name="Leg4" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58, 0.35, 0.59 )
+shape = SubResource( 9 )
+
+[node name="DeskMesh" type="MeshInstance" parent="."]
+use_in_baked_light = true
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 3 )
+
+[node name="UpperDrawer" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.61, 0.33 )
+
+[node name="LowerDrawer" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.49, 0.33 )

@@ -1,0 +1,11 @@
+[gd_resource type="SpatialMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://demo/textures/lamp_shade.png" type="Texture" id=1]
+
+[resource]
+emission_enabled = true
+emission = Color( 1, 0.956863, 0.85098, 1 )
+emission_energy = 1.0
+emission_operator = 1
+emission_on_uv2 = false
+emission_texture = ExtResource( 1 )

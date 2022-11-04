@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://demo/materials/ball.tres" type="Material" id=1]
+
+[sub_resource type="SphereShape" id=1]
+radius = 0.4
+
+[sub_resource type="SphereMesh" id=2]
+radius = 0.4
+height = 0.8
+radial_segments = 32
+rings = 16
+
+[node name="Ball" type="RigidBody"]
+collision_layer = 2
+collision_mask = 7
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = ExtResource( 1 )
