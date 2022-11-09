@@ -82,7 +82,7 @@ _global_script_class_icons={
 
 config/name="VR Template"
 run/main_scene="res://demo/demo_room.tscn"
-config/icon="res://icon.png"
+config/icon="res://icon.svg"
 
 [autoload]
 
