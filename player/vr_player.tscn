@@ -28,6 +28,7 @@ shape = SubResource( 1 )
 
 [node name="Camera" type="ARVRCamera" parent="KinematicBody/ARVROrigin"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
+cull_mask = 1048063
 
 [node name="LeftController" parent="KinematicBody/ARVROrigin" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1, 0 )
