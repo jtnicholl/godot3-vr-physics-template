@@ -1,6 +1,8 @@
 class_name VRPlayer extends Spatial
 
 
+signal bounds_escaped()
+
 export(bool) var can_move := true
 export(float) var walk_speed := 1.0
 export(float) var impulse_multiplier := 0.2
@@ -26,6 +28,7 @@ onready var _left_teleporter := $KinematicBody/ARVROrigin/LeftController/Telepor
 onready var _right_teleporter := $KinematicBody/ARVROrigin/RightController/Teleporter as Teleporter
 onready var _camera := $KinematicBody/ARVROrigin/Camera as ARVRCamera
 onready var _shape := _collision_shape.shape as CapsuleShape
+onready var _out_of_bounds_player := $OutOfBoundsPlayer as AnimationPlayer
 
 
 func _physics_process(_delta: float):
@@ -79,7 +82,7 @@ func _update_collision() -> void:
 func _try_grab(tracker_hand: int) -> void:
 	var controller := _left_controller if tracker_hand == \
 			ARVRPositionalTracker.TRACKER_LEFT_HAND else _right_controller
-	var hand := _left_hand  if tracker_hand == \
+	var hand := _left_hand if tracker_hand == \
 			ARVRPositionalTracker.TRACKER_LEFT_HAND else _right_hand
 	var result := controller.try_grab(0.2)
 	if result.grabbable != null:
@@ -100,6 +103,14 @@ func _update_locomotion_direction() -> void:
 			_locomotion_direction = _left_controller.global_transform.basis.get_euler().y
 		Settings.LocomotionDirectionSource.RIGHT_CONTROLLER:
 			_locomotion_direction = _right_controller.global_transform.basis.get_euler().y
+
+
+func _on_bounds_check_body_entered(_body: Node):
+	_out_of_bounds_player.play("out_of_bounds")
+
+
+func _on_bounds_check_body_exited(_body: Node):
+	_out_of_bounds_player.play("RESET")
 
 
 func _on_teleport_left_action_pressed():
@@ -193,3 +204,8 @@ func _on_walk_right_action_pressed():
 
 func _on_walk_right_action_released():
 	_walking_input.x = 0
+
+
+func _on_out_of_bounds_player_animation_finished(anim_name: String):
+	if anim_name == "out_of_bounds":
+		emit_signal("bounds_escaped")

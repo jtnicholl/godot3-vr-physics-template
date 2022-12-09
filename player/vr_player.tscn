@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://player/vr_controller.tscn" type="PackedScene" id=1]
 [ext_resource path="res://player/vr_player.gd" type="Script" id=2]
@@ -13,6 +13,41 @@
 resource_local_to_scene = true
 radius = 0.2
 height = 1.4
+
+[sub_resource type="SphereShape" id=2]
+radius = 0.1
+
+[sub_resource type="Animation" id=3]
+resource_name = "RESET"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("OutOfBoundsPlayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.101961, 0.101961, 0.101961, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "out_of_bounds"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("OutOfBoundsPlayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.101961, 0.101961, 0.101961, 0 ), Color( 0.101961, 0.101961, 0.101961, 1 ) ]
+}
 
 [node name="VRPlayer" type="Spatial"]
 script = ExtResource( 2 )
@@ -29,6 +64,12 @@ shape = SubResource( 1 )
 [node name="Camera" type="ARVRCamera" parent="KinematicBody/ARVROrigin"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
 cull_mask = 1048063
+
+[node name="BoundsCheck" type="Area" parent="KinematicBody/ARVROrigin/Camera"]
+collision_layer = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="KinematicBody/ARVROrigin/Camera/BoundsCheck"]
+shape = SubResource( 2 )
 
 [node name="LeftController" parent="KinematicBody/ARVROrigin" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1, 0 )
@@ -118,6 +159,17 @@ pressed_action = "/actions/godot/in/walk_left"
 script = ExtResource( 8 )
 pressed_action = "/actions/godot/in/walk_right"
 
+[node name="OutOfBoundsPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/out_of_bounds = SubResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="OutOfBoundsPlayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.101961, 0.101961, 0.101961, 0 )
+
+[connection signal="body_entered" from="KinematicBody/ARVROrigin/Camera/BoundsCheck" to="." method="_on_bounds_check_body_entered"]
+[connection signal="body_exited" from="KinematicBody/ARVROrigin/Camera/BoundsCheck" to="." method="_on_bounds_check_body_exited"]
 [connection signal="teleported" from="KinematicBody/ARVROrigin/LeftController/Teleporter" to="." method="_on_teleporter_teleported"]
 [connection signal="teleported" from="KinematicBody/ARVROrigin/RightController/Teleporter" to="." method="_on_teleporter_teleported"]
 [connection signal="pressed" from="Actions/TeleportLeftAction" to="." method="_on_teleport_left_action_pressed"]
@@ -138,3 +190,4 @@ pressed_action = "/actions/godot/in/walk_right"
 [connection signal="released" from="Actions/WalkLeftAction" to="." method="_on_walk_left_action_released"]
 [connection signal="pressed" from="Actions/WalkRightAction" to="." method="_on_walk_right_action_pressed"]
 [connection signal="released" from="Actions/WalkRightAction" to="." method="_on_walk_right_action_released"]
+[connection signal="animation_finished" from="OutOfBoundsPlayer" to="." method="_on_out_of_bounds_player_animation_finished"]

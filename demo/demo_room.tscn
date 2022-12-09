@@ -241,3 +241,5 @@ data = ExtResource( 13 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 16 )
+
+[connection signal="bounds_escaped" from="VRPlayer" to="." method="_on_vr_player_bounds_escaped"]
