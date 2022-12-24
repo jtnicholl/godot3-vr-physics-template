@@ -3,7 +3,7 @@ This is a basic template for a VR application in Godot with physical hands that 
 
 Godot version 3.5 or later is required, this is because 3.5 introduced asynchronous shader compilation and shader caching. This prevents stuttering caused by shader compilation, which is a nuisance in normal desktop games but in VR it is severely nausea inducing.
 
-Godot 4.0 is not supported. I intend to port this to 4.0 using its built-in OpenXR support in a separate repo later.
+For a Godot 4.0 version, check [this repo](https://github.com/jtnicholl/godot4-vr-physics-template).
 
 ## Why should I use this?
 Many VR games use a very simple system for the player's hands. The hand copies the position of the controller every frame, and that's it. When the player picks up an object with their hand, the object gets its physics shut off, and it gets dragged along with the hand. When the item is let go it is disconnected from the controller, its physics turned back on, and sometimes it is given an impulse so it can be thrown.
@@ -19,15 +19,6 @@ This template takes a different approach to hands. For each hand it involves:
 Grabbing objects can happen one of two ways, depending on the object being grabbed. For both, the first step is the hand node moves to the nearest grabbable point.
 For objects that extend `Pickup`, the pickup is then reparented to the hand. However, instead of just disabling collision on the picked up object, its collision bounds also get reparented to the hand. This effectively turns the object into an extension of the hand's collision bounds, keeping them together precisely while also preventing them from passing through walls.
 Other grabbable objects, such as doors and drawers, should extend `Moveable`. These objects are connected to the hand with a joint.
-
-## Todo
-This is already in a usable state but there is still some more to be done:
-- Picking up objects with two hands
-- Code cleanup
-- Add documentation comments to public methods
-- Allow adjusting the offset of the hands in-game, not just through the config file
-- Include default bindings for more than just the Vive controllers
-- Fix known issue: The door in the demo room swings too far and can pass through the wall
 
 ## Credits
 This project uses a stripped-down version of the OpenVR plugin by the GodotVR team, released under the MIT license. See [its license](addons/godot-openvr/LICENSE) for details.
