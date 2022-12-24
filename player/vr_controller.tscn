@@ -23,4 +23,4 @@ collision_mask = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.025, -0.05 )
 shape = SubResource( 1 )
 
-[connection signal="timeout" from="MeshUpdateTimer" to="." method="_on_MeshUpdateTimer_timeout"]
+[connection signal="timeout" from="MeshUpdateTimer" to="." method="_on_mesh_update_timer_timeout"]

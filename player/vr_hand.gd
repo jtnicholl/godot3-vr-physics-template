@@ -2,30 +2,27 @@ class_name VRHand extends RigidBody
 
 
 export(NodePath) var controller
-
 var offset_rotation: Basis
 var velocity := Vector3.ZERO
 
 var _time_since_contact := 1.0
 var _touching_flat_surface := false
-
 var _previous_position := Vector3.ZERO
-
 onready var _controller := get_node(controller) as VRController
 onready var _glove := $VRGlove as VRGlove
 onready var _positive_corner: Vector3 = $Palm.shape.extents * Vector3(1, -1, 1)
 
 
-func _ready():
+func _ready() -> void:
 	assert(is_instance_valid(_controller), "Controller path was not set correctly for " + name)
 
 
-func _physics_process(delta: float):
+func _physics_process(delta: float) -> void:
 	velocity = (global_transform.origin - _previous_position) / delta
 	_previous_position = global_transform.origin
 
 
-func _integrate_forces(state: PhysicsDirectBodyState):
+func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 	if state.get_contact_count() == 0:
 		_copy_rotation(state, _time_since_contact) # TODO this does not take delta into account correctly
 		_time_since_contact += state.step
@@ -38,9 +35,9 @@ func _integrate_forces(state: PhysicsDirectBodyState):
 
 
 func _copy_rotation(state: PhysicsDirectBodyState, weight: float) -> void:
-	state.transform.basis = state.transform.basis.slerp( \
-			(_controller.global_transform.basis * offset_rotation).orthonormalized(), \
-			min(weight, 1.0)
+	state.transform.basis = state.transform.basis.slerp(
+		(_controller.global_transform.basis * offset_rotation).orthonormalized(),
+		min(weight, 1.0)
 	)
 	state.angular_velocity = Vector3.ZERO
 

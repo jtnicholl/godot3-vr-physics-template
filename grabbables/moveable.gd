@@ -4,7 +4,7 @@ class_name Moveable extends Grabbable
 onready var _joint := $Joint as Joint
 
 
-func _exit_tree():
+func _exit_tree() -> void:
 	release()
 
 

@@ -12,11 +12,11 @@ onready var _collision_check := $CollisionCheck as Area
 onready var _target_material := $CollisionCheck/Target["material/0"] as SpatialMaterial
 
 
-func _ready():
+func _ready() -> void:
 	set_physics_process(false)
 
 
-func _physics_process(_delta: float):
+func _physics_process(_delta: float) -> void:
 	if is_colliding():
 		_collision_check.global_transform.origin = get_collision_point()
 		_collision_check.global_transform.basis = Basis.IDENTITY

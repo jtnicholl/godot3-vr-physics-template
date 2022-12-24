@@ -54,7 +54,7 @@ func _compare(point_a: Spatial, distance_a: float, point_b: Spatial, distance_b:
 		return false
 
 
-func _on_MeshUpdateTimer_timeout():
+func _on_mesh_update_timer_timeout() -> void:
 	update_mesh()
 	if is_instance_valid(_mesh.mesh):
 		$MeshUpdateTimer.queue_free()

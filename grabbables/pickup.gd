@@ -5,7 +5,7 @@ export(bool) var throwable := true
 
 var _holder: Spatial = null
 var _collision_shapes := []
-onready var _original_parent := get_parent()
+onready var _original_parent := get_parent() as Spatial
 
 
 func _ready():

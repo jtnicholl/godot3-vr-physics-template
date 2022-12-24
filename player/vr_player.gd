@@ -31,7 +31,7 @@ onready var _shape := _collision_shape.shape as CapsuleShape
 onready var _out_of_bounds_player := $OutOfBoundsPlayer as AnimationPlayer
 
 
-func _physics_process(_delta: float):
+func _physics_process(_delta: float) -> void:
 	_update_collision()
 	if can_move and continuous_locomotion_enabled and not _walking_input.is_equal_approx(Vector2.ZERO):
 		if locomotion_update_mode == Settings.LocomotionUpdateMode.CONTINUOUS:
@@ -63,9 +63,9 @@ func rotate_head(radians: float) -> void:
 
 
 func set_hand_offset(position: Vector3, rotation: Vector3) -> void:
-	$RightHandAnchor.offset_position = position
+	($RightHandAnchor as HandAnchor).offset_position = position
 	position.x = -position.x
-	$LeftHandAnchor.offset_position = position
+	($LeftHandAnchor as HandAnchor).offset_position = position
 	_right_hand.offset_rotation = Basis(rotation)
 	rotation.y = -rotation.y
 	rotation.z = -rotation.z
@@ -105,107 +105,107 @@ func _update_locomotion_direction() -> void:
 			_locomotion_direction = _right_controller.global_transform.basis.get_euler().y
 
 
-func _on_bounds_check_body_entered(_body: Node):
+func _on_bounds_check_body_entered(_body: Node) -> void:
 	_out_of_bounds_player.play("out_of_bounds")
 
 
-func _on_bounds_check_body_exited(_body: Node):
+func _on_bounds_check_body_exited(_body: Node) -> void:
 	_out_of_bounds_player.play("RESET")
 
 
-func _on_teleport_left_action_pressed():
+func _on_teleport_left_action_pressed() -> void:
 	if can_move and teleporting_enabled:
 		_right_teleporter.cancel()
 		_left_teleporter.press()
 
 
-func _on_teleport_left_action_released():
+func _on_teleport_left_action_released() -> void:
 	_left_teleporter.release()
 
 
-func _on_teleport_right_action_pressed():
+func _on_teleport_right_action_pressed() -> void:
 	if can_move:
 		_left_teleporter.cancel()
 		_right_teleporter.press()
 
 
-func _on_teleport_right_action_released():
+func _on_teleport_right_action_released() -> void:
 	_right_teleporter.release()
 
 
-func _on_teleporter_teleported(global_position: Vector3):
+func _on_teleporter_teleported(global_position: Vector3) -> void:
 	if can_move:
 		position_feet(global_position)
 
 
-func _on_turn_left_action_pressed():
-	rotate_head(-PI/4)
+func _on_turn_left_action_pressed() -> void:
+	rotate_head(-PI / 4.0)
 
 
-func _on_turn_right_action_pressed():
-	rotate_head(PI/4)
+func _on_turn_right_action_pressed() -> void:
+	rotate_head(PI / 4.0)
 
 
-func _on_grab_left_action_pressed():
+func _on_grab_left_action_pressed() -> void:
 	call_deferred("_try_grab", ARVRPositionalTracker.TRACKER_LEFT_HAND)
 
 
-func _on_grab_left_action_released():
+func _on_grab_left_action_released() -> void:
 	if is_instance_valid(_left_grabbable):
 		_left_grabbable.release(_left_hand.velocity * impulse_multiplier)
 	_left_grabbable = null
 
 
-func _on_grab_right_action_pressed():
+func _on_grab_right_action_pressed() -> void:
 	call_deferred("_try_grab", ARVRPositionalTracker.TRACKER_RIGHT_HAND)
 
 
-func _on_grab_right_action_released():
+func _on_grab_right_action_released() -> void:
 	if is_instance_valid(_right_grabbable):
 		_right_grabbable.release(_right_hand.velocity * impulse_multiplier)
 	_right_grabbable = null
 
 
-func _on_walk_forward_action_pressed():
+func _on_walk_forward_action_pressed() -> void:
 	if can_move:
-		_walking_input.y = -1
+		_walking_input.y = -1.0
 		_update_locomotion_direction()
 
 
-func _on_walk_forward_action_released():
+func _on_walk_forward_action_released() -> void:
+	_walking_input.y = 0.0
+
+
+func _on_walk_backward_action_pressed() -> void:
+	if can_move:
+		_walking_input.y = 1.0
+		_update_locomotion_direction()
+
+
+func _on_walk_backward_action_released() -> void:
 	_walking_input.y = 0
 
 
-func _on_walk_backward_action_pressed():
+func _on_walk_left_action_pressed() -> void:
 	if can_move:
-		_walking_input.y = 1
+		_walking_input.x = -1.0
 		_update_locomotion_direction()
 
 
-func _on_walk_backward_action_released():
-	_walking_input.y = 0
+func _on_walk_left_action_released() -> void:
+	_walking_input.x = 0.0
 
 
-func _on_walk_left_action_pressed():
+func _on_walk_right_action_pressed() -> void:
 	if can_move:
-		_walking_input.x = -1
+		_walking_input.x = 1.0
 		_update_locomotion_direction()
 
 
-func _on_walk_left_action_released():
-	_walking_input.x = 0
+func _on_walk_right_action_released() -> void:
+	_walking_input.x = 0.0
 
 
-func _on_walk_right_action_pressed():
-	if can_move:
-		_walking_input.x = 1
-		_update_locomotion_direction()
-
-
-func _on_walk_right_action_released():
-	_walking_input.x = 0
-
-
-func _on_out_of_bounds_player_animation_finished(anim_name: String):
+func _on_out_of_bounds_player_animation_finished(anim_name: String) -> void:
 	if anim_name == "out_of_bounds":
 		emit_signal("bounds_escaped")
