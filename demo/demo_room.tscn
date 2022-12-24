@@ -242,4 +242,12 @@ data = ExtResource( 13 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 16 )
 
+[node name="HingeJoint" type="HingeJoint" parent="."]
+transform = Transform( -3.14315e-06, 1, 3.14315e-06, 0, -3.14315e-06, 1, 1, 3.14315e-06, 9.87941e-12, 0.05, 1.1, -0.05 )
+nodes/node_a = NodePath("../Doorframe")
+nodes/node_b = NodePath("../RotatingDoor")
+angular_limit/enable = true
+angular_limit/upper = 120.0
+angular_limit/lower = -120.0
+
 [connection signal="bounds_escaped" from="VRPlayer" to="." method="_on_vr_player_bounds_escaped"]
